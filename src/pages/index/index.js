@@ -6,6 +6,7 @@ import request from '../../utils/request';
 import { add, minus, asyncAdd } from '../../actions/counter'
 
 import './index.less'
+import Qrcode from "../../components/Qrcode";
 
 
 
@@ -34,7 +35,7 @@ class Index extends Component {
     });
     this.state = {
       util: require('../../utils/util.js'),
-    }
+      data: '',}
   }
   componentWillReceiveProps (nextProps) {
     console.log(this.props, nextProps)
@@ -46,18 +47,20 @@ class Index extends Component {
 
   componentDidHide () { }
   onBFClick = () => {
-    window.speechSynthesis.speak(new SpeechSynthesisUtterance("taro官方提供的demo是很简单的，主要是为了让大家快速上手，入门。那么，当我们要开发偏大型的项目时，应该如何使用taro使得开发体验更好，开发效率更高？作为深度参与TOPLIFE小程序开发的人员之一，谈一谈我的一些实践体验及心得"));
-  }
+    window.speechSynthesis.speak(new SpeechSynthesisUtterance(this.state.data));
+  };
   render () {
     console.log(this.state.util);
     return (
       <View className='index'>
-        <AtButton type='primary' className='bounceInLeft animated' onClick={this.onBFClick}>按钮文案 <Image src='https://test-1257992287.cos.ap-chengdu.myqcloud.com/test/logo.png' style={{width: 32, height: 24}} /></AtButton>
+        <AtButton type='primary' className='bounceInLeft animated' onClick={this.onBFClick}>按钮文案
+          <Image src='https://test-1257992287.cos.ap-chengdu.myqcloud.com/test/logo.png' style={{width: 35, height: 30, lineHeight: 30}} />
+        </AtButton>
         <Button className='add_btn' onClick={this.props.add}>++</Button>
         <Button className='dec_btn' onClick={this.props.dec}>-</Button>
         <Button className='dec_btn' onClick={this.props.asyncAdd}>async</Button>
         <View><Text>{this.props.counter.num}</Text></View>
-        <View><Text>Hello, World</Text></View>
+        <Qrcode />
       </View>
     )
   }
